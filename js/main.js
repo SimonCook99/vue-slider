@@ -30,9 +30,9 @@ const app = new Vue({
             }
         ],
 
-        active: 0
+        active: 0,
+        clock: ""
     },
-
     methods: {
         //funzione del bottone che scorre alla slide precedente
         previousSlide(){
@@ -49,7 +49,21 @@ const app = new Vue({
             }else{
                 this.active++;
             }
+        },
+        SlideShow(){ //funzione che fa partire lo slideshow, chiamando la funzione nextslide ogni 3 secondi
+            this.clock = setInterval(this.nextSlide, 3000);
+        },
+        StopSlideShow(){ //funzione che ferma lo slideshow, quando l'utente passa il mouse sull'immagine principale
+            clearInterval(this.clock);
+        },
+        switchThumb(index){
+            this.active = index;
         }
+        
+    },
+    //metodo che viene chiamato da Vue appena viene caricata la pagina
+    beforeMount(){
+        this.SlideShow();
     }
 });
 
